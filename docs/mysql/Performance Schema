@@ -1,0 +1,23 @@
+# MySQL Performance Schema 是 MySQL 数据库提供的一个用于性能监控和调优的工具。它以表格形式存储了 MySQL 数据库服务器的性能相关数据，包括查询执行时间、锁等待情况、线程活动、I/O 操作等信息，可以帮助用户深入了解数据库服务器的运行状态和性能瓶颈，从而进行性能优化和故障诊断。
+
+通过 Performance Schema，用户可以进行以下操作和获得以下信息：
+
+查看实时性能指标： Performance Schema 可以提供实时的性能数据，包括查询响应时间、锁等待情况、线程活动等指标，帮助用户了解数据库服务器的当前性能表现。
+
+识别性能瓶颈： 用户可以通过 Performance Schema 分析数据库服务器的性能数据，识别可能存在的性能瓶颈和优化空间，进而调整配置和 SQL 查询语句，提高数据库性能。
+
+跟踪 SQL 查询： Performance Schema 可以记录 SQL 查询的执行时间、访问次数等信息，帮助用户分析查询性能，识别慢查询并进行优化。
+
+监控锁等待情况： Performance Schema 可以监控数据库中的锁等待情况，帮助用户识别锁冲突问题，并优化数据库设计和查询语句。
+
+分析线程活动： Performance Schema 可以跟踪数据库服务器中线程的活动情况，帮助用户了解并优化并发连接情况。
+
+
+SELECT ROUND(SUM(TIMER_WAIT)/1000000000000, 6) AS `total_latency(s)` FROM `events_statements_history` where DIGEST like '%f0c945e7d9224fc82c458dc0cf200106a22821eedddf7c3f89%';
+
+在上述 SQL 查询语句中，ROUND(SUM(TIMER_WAIT)/1000000000000, 6) AS total_latency(s) 这部分的作用是计算总执行时间并将其转换为秒，并保留小数点后六位。
+
+
+# 默认情况性能模式 Performance Schema 性能模式是开启的  SHOW VARIABLES LIKE 'performance_schema';
+
+要查看服务器此时正在做什么，请检查该 events_waits_current表。它包含每个线程一行，显示每个线程最近监视的事件
